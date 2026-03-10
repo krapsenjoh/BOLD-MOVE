@@ -62,7 +62,7 @@ h1 {
     filter: blur(2px);
     z-index: -1;
 }
-.aboutus{
+.aboutus,.links{
     width: 80%;
     padding: 10px;
     background: #10503F;
