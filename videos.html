@@ -1,17 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>videos</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Watch Shorts & Earn</title>
 
+<style>
+  body {
+    font-family: "Segoe UI", sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg, #4f46e5, #9333ea);
+    color: white;
+    padding: 20px;
+  }
+
+  .card {
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+
+  #player {
+    width: 100%;
+    height: 600px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  #status {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #4f46e5;
+  }
+
+  #startBtn {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: none;
+    background: #4f46e5;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  #startBtn:disabled {
+    background: gray;
+    cursor: not-allowed;
+  }
+</style>
 </head>
 <body>
-    <h1>Welcome to videos part</h1>
-    <h5>click the watch button to watch the video</h5>
-  <a href="">Watch videos</a> 
-  
-  <iframe src="https://www.youtube.com/embed/QPriXoOcw1Q" frameborder="0" allowfullscreen></iframe>
+
+<div class="card">
+  <h1>📱 Watch Shorts & Earn</h1>
+  <p>Click start to begin</p>
+
+  <div id="player"></div>
+
+  <button id="startBtn" disabled>Loading player...</button>
+
+  <p id="status"></p>
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+const shortsList = [
+  "ZbZSe6N_BXs",
+  "tVj0ZTS4WF4",
+  "kJQP7kiw5Fk",
+  "9bZkp7q19f0",
+  "fRh_vgS2dFE"
+];
+
+// Shuffle
+shortsList.sort(() => Math.random() - 0.5);
+
+let current = 0;
+let player;
+
+// YouTube API ready
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player("player", {
+    height: "600",
+    width: "100%",
+    videoId: shortsList[current],
+    playerVars: {
+      autoplay: 0,
+      controls: 1,
+      modestbranding: 1
+    },
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+}
+
+// Enable button once player is ready
+function onPlayerReady(event) {
+  const startBtn = document.getElementById("startBtn");
+  startBtn.disabled = false;
+  startBtn.innerText = "Start Watching";
+
+  startBtn.addEventListener("click", () => {
+    player.mute(); // Must mute for autoplay to work
+    player.playVideo();
+    document.getElementById("status").innerText = "Playing short 1";
+  });
+}
+
+// When a video ends
+function onPlayerStateChange(event) {
+  if (event.data === YT.PlayerState.ENDED) {
+    current++;
+
+    if (current < shortsList.length) {
+      document.getElementById("status").innerText =
+        "Playing short " + (current + 1);
+      player.loadVideoById(shortsList[current]);
+    } else {
+      document.getElementById("status").innerText =
+        "All shorts completed!";
+      alert("🎉 Done watching all shorts!");
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 2000);
+    }
+  }
+}
+</script>
+
 </body>
 </html>
