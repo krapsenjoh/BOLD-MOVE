@@ -1,35 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EASY MONEY</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Easy Money</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #4f46e5, #9333ea);
+      min-height: 100vh;
+      color: #111827;
+    }
+
+    /* Header */
+    header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    header h1 {
+      font-size: 22px;
+    }
+
+    .logout-btn {
+      background: #ef4444;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      background: #dc2626;
+    }
+
+    /* Main Container */
+    .container {
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    /* Cards */
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    /* Earnings */
+    .earnings {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    .earnings div {
+      flex: 1;
+    }
+
+    .earnings h2 {
+      color: #4f46e5;
+      margin-top: 5px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #4f46e5;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #4338ca;
+    }
+
+    /* Referral */
+    .ref-box {
+      background: #f3f4f6;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+      word-break: break-all;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      color: white;
+      padding: 15px;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>WELCOME TO EASY MONEY</h1>
+
+<header>
+  <h1>💰 Easy Money</h1>
+  <button class="logout-btn" id="logoutBtn">Logout</button>
+</header>
+
+<div class="container">
+
+  <!-- Earnings -->
+  <div class="card">
+    <h3>Your Earnings</h3>
+    <div class="earnings">
+      <div>
+        <p>Balance</p>
+        <h2>KES 120</h2>
+      </div>
+      <div>
+        <p>Referrals</p>
+        <h2>5</h2>
+      </div>
+      <div>
+        <p>Surveys</p>
+        <h2>3</h2>
+      </div>
+    </div>
   </div>
 
-  <div class="aboutus">
-    <h2>About us</h2>
-    <p>Easy Money is an online platform designed to help users discover simple ways to earn income through the internet.
-      The site provides opportunities such as completing small tasks, participating in surveys, watching advertisements,
-      and referring friends to the platform. Easy Money aims to make online earning accessible to everyone by offering a
-      user-friendly interface and clear instructions for beginners. With its quick registration process and multiple
-      earning options, the platform seeks to help users generate extra cash conveniently from their phones or computers.
-      💻💰
-    </p>
-  <div class="links">
-  <a href="earning site.html">start earning now!</a>
-  <p>Already have an account</p>
-  <a href="earning site.html">log in</a>
-
+  <!-- Survey Section -->
+  <div class="card">
+    <h3>Earn by Surveys</h3>
+    <p>Complete short surveys and earn rewards instantly.</p>
+    <a href="surveys.html" class="btn">Take a Survey</a>
   </div>
 
-</
-body>
+  <!-- Referral Section -->
+  <div class="card">
+    <h3>Invite & Earn</h3>
+    <p>Earn money by referring your friends.</p>
 
+    <div class="ref-box" id="refLink">
+      https://easymoney.com/ref?user=12345
+    </div>
+
+    <button class="btn" onclick="copyLink()">Copy Referral Link</button>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Easy Money. All rights reserved.
+</footer>
+
+<script>
+  // Logout
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("tenantData");
+    window.location.href = "index.html";
+  });
+
+  // Copy referral link
+  function copyLink() {
+    const text = document.getElementById("refLink").innerText;
+    navigator.clipboard.writeText(text);
+    alert("Referral link copied!");
+  }
+</script>
+
+</body>
 </html>
